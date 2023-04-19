@@ -28,9 +28,6 @@ function createImageCard(items) {
          return;
       };
 
-      const originalImage = e.target.dataset.source;
-      const descriptionImage = e.target.getAttribute('alt');
-
       const lightbox = new SimpleLightbox('.gallery__link', { captionDelay: 250,
          scrollZoom: false,
          captionsData: 'alt' });
