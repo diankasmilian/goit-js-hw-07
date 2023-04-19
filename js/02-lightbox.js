@@ -14,7 +14,8 @@ function createImageCard(items) {
       <a class="gallery__link" href="${original}">
          <img class="gallery__image" 
          src="${preview}" 
-         alt="${description}" />
+         alt="${description}" 
+          />
       </a>
    </li>
       `
@@ -30,6 +31,7 @@ function createImageCard(items) {
       const originalImage = e.target.dataset.source;
       const descriptionImage = e.target.getAttribute('alt');
 
-      const gallery = ('.gallery').simpleLightbox();
-      gallery.open('e.target');
+      const lightbox = new SimpleLightbox('.gallery__link', { captionDelay: 250,
+         scrollZoom: false,
+         captionsData: 'alt' });
    }
