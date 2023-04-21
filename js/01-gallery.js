@@ -4,6 +4,7 @@ import { galleryItems } from './gallery-items.js';
 const gallery = document.querySelector('.gallery');
 const cardGallery = createImageCard(galleryItems);
 
+
 gallery.insertAdjacentHTML('beforeend', cardGallery);
 gallery.addEventListener('click', onGalleryClick);
 
@@ -36,14 +37,11 @@ function onGalleryClick(e) {
    if (!e.target.classList.contains('gallery__image')) {
       return;
    };
-
-   const modalOpen = modal (originalImage, descriptionImage);
-
-  
+   onModalCreate(originalImage, descriptionImage);
 };
 
-function modal (image, description) {
-   basicLightbox.create(`
+function onModalCreate (image, description) {
+   const modal = basicLightbox.create(`
    <div class="modal">
    <img
    class="gallery__image"
@@ -65,9 +63,11 @@ function modal (image, description) {
 ).show();
 }
 
+
+
 function onListenerEscape (e) {
    if (e.key === 'Escape') {
-      modal(image, description).close;
+      modal.close();
    }
 }
 
