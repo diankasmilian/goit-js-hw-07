@@ -29,26 +29,21 @@ return items.map(({preview, original, description}) => {
 
 function onGalleryClick(e) {
    e.preventDefault();
-   if (!e.target.classList.contains('gallery__image')) {
-      return;
-   };
-
-   document.addEventListener('keydown', (e) => {
-      if (basicLightbox.visible() && e.key === 'Escape') {
-         modalOpen.close();
-      }
-   });
 
    const originalImage = e.target.dataset.source;
    const descriptionImage = e.target.getAttribute('alt');
 
-   const modalOpen = modal(originalImage, descriptionImage);
- 
-   modalOpen.show();
+   if (!e.target.classList.contains('gallery__image')) {
+      return;
+   };
+
+   const modalOpen = modal (originalImage, descriptionImage);
+
+  
 };
 
 function modal (image, description) {
-   return basicLightbox.create(`
+   basicLightbox.create(`
    <div class="modal">
    <img
    class="gallery__image"
@@ -57,6 +52,22 @@ function modal (image, description) {
    alt="${description}"
  />
    </div>
-`);
+`, {
+   onShow: () => {
+      document.addEventListener('keydown', onListenerEscape);
+   }
+},
+{
+   onClose: () => {
+      document.removeEventListener('keydown', onListenerEscape);
+   }
+}
+).show();
+}
+
+function onListenerEscape (e) {
+   if (e.key === 'Escape') {
+      modal(image, description).close;
+   }
 }
 
