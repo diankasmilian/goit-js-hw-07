@@ -3,6 +3,7 @@ import { galleryItems } from './gallery-items.js';
 
 const gallery = document.querySelector('.gallery');
 const cardGallery = createImageCard(galleryItems);
+let modal;
 
 
 gallery.insertAdjacentHTML('beforeend', cardGallery);
@@ -41,7 +42,7 @@ function onGalleryClick(e) {
 };
 
 function onModalCreate (image, description) {
-   const modal = basicLightbox.create(`
+   modal = basicLightbox.create(`
    <div class="modal">
    <img
    class="gallery__image"
@@ -53,14 +54,13 @@ function onModalCreate (image, description) {
 `, {
    onShow: () => {
       document.addEventListener('keydown', onListenerEscape);
-   }
-},
-{
+   },
    onClose: () => {
       document.removeEventListener('keydown', onListenerEscape);
    }
-}
-).show();
+})
+
+return modal.show();
 }
 
 
